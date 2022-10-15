@@ -60,7 +60,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         automaticallyImplyLeading: false,
         title: Row(
-          mainAxisSize: MainAxisSize.max,
+          // mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (Theme.of(context).brightness == Brightness.light)
               Image.asset(
@@ -72,29 +73,29 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             if (Theme.of(context).brightness == Brightness.dark)
               Image.asset(
                 'assets/images/logoSniff_dark@3x.png',
-                width: 280,
+                width: 240,
                 height: 50,
                 fit: BoxFit.fitWidth,
               ),
           ],
         ),
         actions: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
-            child: FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30,
-              buttonSize: 46,
-              icon: Icon(
-                Icons.notifications_outlined,
-                color: FlutterFlowTheme.of(context).grayIcon,
-                size: 24,
-              ),
-              onPressed: () {
-                print('IconButton pressed ...');
-              },
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+          //   child: FlutterFlowIconButton(
+          //     borderColor: Colors.transparent,
+          //     borderRadius: 30,
+          //     buttonSize: 46,
+          //     icon: Icon(
+          //       Icons.notifications_outlined,
+          //       color: FlutterFlowTheme.of(context).grayIcon,
+          //       size: 24,
+          //     ),
+          //     onPressed: () {
+          //       print('IconButton pressed ...');
+          //     },
+          //   ),
+          // ),
         ],
         centerTitle: false,
         elevation: 0,
@@ -106,7 +107,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 172,
+              height: 158,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).alternate,
                 boxShadow: [
@@ -128,13 +129,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 230, 8),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 290, 8),
                     child: Text(
-                      'Quick Posts',
+                      'Stories',
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Urbanist',
-                            fontSize: 24,
+                            fontSize: 21,
                           ),
                     ),
                   ),
@@ -143,116 +144,127 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                     ),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 8),
-                      child: StreamBuilder<List<UserStoriesRecord>>(
-                        stream: queryUserStoriesRecord(
-                          queryBuilder: (userStoriesRecord) => userStoriesRecord.orderBy('storyPostedAt', descending: true),
-                          limit: 20,
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: CircularProgressIndicator(
-                                  color: FlutterFlowTheme.of(context).primaryColor,
-                                ),
+                    child: StreamBuilder<List<UserStoriesRecord>>(
+                      stream: queryUserStoriesRecord(
+                        queryBuilder: (userStoriesRecord) => userStoriesRecord.orderBy('storyPostedAt', descending: true),
+                        limit: 20,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(
+                                color: FlutterFlowTheme.of(context).primaryColor,
                               ),
-                            );
-                          }
-                          List<UserStoriesRecord> listViewUserStoriesRecordList = snapshot.data!;
-                          if (listViewUserStoriesRecordList.isEmpty) {
-                            return Center(
-                              child: Image.asset(
-                                'assets/images/df3hg_',
-                                width: 60,
-                              ),
-                            );
-                          }
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: listViewUserStoriesRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewUserStoriesRecord = listViewUserStoriesRecordList[listViewIndex];
-                              return Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(12, 0, 8, 0),
-                                child: StreamBuilder<UsersRecord>(
-                                  stream: UsersRecord.getDocument(listViewUserStoriesRecord.user!),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50,
-                                          height: 50,
-                                          child: CircularProgressIndicator(
-                                            color: FlutterFlowTheme.of(context).primaryColor,
-                                          ),
+                            ),
+                          );
+                        }
+                        List<UserStoriesRecord> listViewUserStoriesRecordList = snapshot.data!;
+                        if (listViewUserStoriesRecordList.isEmpty) {
+                          return Center(
+                            child: Image.asset(
+                              'assets/images/df3hg_',
+                              width: 60,
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: listViewUserStoriesRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewUserStoriesRecord = listViewUserStoriesRecordList[listViewIndex];
+                            return Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                              child: StreamBuilder<UsersRecord>(
+                                stream: UsersRecord.getDocument(listViewUserStoriesRecord.user!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: CircularProgressIndicator(
+                                          color: FlutterFlowTheme.of(context).primaryColor,
                                         ),
-                                      );
-                                    }
-                                    final columnUsersRecord = snapshot.data!;
-                                    return InkWell(
-                                      onTap: () async {
-                                        context.pushNamed(
-                                          'storyDetails',
-                                          queryParams: {
-                                            'initialStoryIndex': serializeParam(
-                                              listViewIndex,
-                                              ParamType.int,
-                                            ),
-                                          }.withoutNulls,
-                                          extra: <String, dynamic>{
-                                            kTransitionInfoKey: TransitionInfo(
-                                              hasTransition: true,
-                                              transitionType: PageTransitionType.bottomToTop,
-                                              duration: Duration(milliseconds: 200),
-                                            ),
-                                          },
-                                        );
-                                      },
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Image.network(
-                                            valueOrDefault<String>(
-                                              columnUsersRecord.photoUrl,
-                                              'https://filecache.mediaroom.com/mr5mr_paypal/183497/supporting%20relief%20efforts%20in%20Ukraine%20GettyImages-1238750704.jpg',
-                                            ),
-                                            width: 80,
-                                            height: 80,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                                            child: AutoSizeText(
-                                              valueOrDefault<String>(
-                                                columnUsersRecord.displayName,
-                                                'Ellie May',
-                                              ).maybeHandleOverflow(
-                                                maxChars: 8,
-                                                replacement: '…',
-                                              ),
-                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                    fontFamily: 'Urbanist',
-                                                    fontSize: 12,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
                                       ),
                                     );
-                                  },
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
+                                  }
+                                  final columnUsersRecord = snapshot.data!;
+                                  return InkWell(
+                                    onTap: () async {
+                                      context.pushNamed(
+                                        'storyDetails',
+                                        queryParams: {
+                                          'initialStoryIndex': serializeParam(
+                                            listViewIndex,
+                                            ParamType.int,
+                                          ),
+                                        }.withoutNulls,
+                                        extra: <String, dynamic>{
+                                          kTransitionInfoKey: TransitionInfo(
+                                            hasTransition: true,
+                                            transitionType: PageTransitionType.bottomToTop,
+                                            duration: Duration(milliseconds: 200),
+                                          ),
+                                        },
+                                      );
+                                    },
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        // rounded image
+                                        Container(
+                                          width: 80,
+                                          height: 80,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                            shape: BoxShape.circle,
+                                            // white wring around image
+                                            border: Border.all(
+                                              color: Colors.white,
+                                              width: 2,
+                                            ),
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                valueOrDefault<String>(
+                                                  columnUsersRecord.photoUrl,
+                                                  'https://filecache.mediaroom.com/mr5mr_paypal/183497/supporting%20relief%20efforts%20in%20Ukraine%20GettyImages-1238750704.jpg',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                          child: AutoSizeText(
+                                            valueOrDefault<String>(
+                                              columnUsersRecord.displayName,
+                                              'Ellie May',
+                                            ).maybeHandleOverflow(
+                                              maxChars: 8,
+                                              replacement: '…',
+                                            ),
+                                            style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                  fontFamily: 'Urbanist',
+                                                  fontSize: 14,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -263,12 +275,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 90, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 155, 0),
                   child: Text(
                     'Trending',
                     style: FlutterFlowTheme.of(context).bodyText1.override(
                           fontFamily: 'Urbanist',
-                          fontSize: 34,
+                          fontSize: 22,
                         ),
                   ),
                 ),
@@ -411,7 +423,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     },
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 2, 0),
@@ -571,12 +583,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 90, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 155, 0),
                     child: Text(
                       'Discover',
                       style: FlutterFlowTheme.of(context).bodyText1.override(
                             fontFamily: 'Urbanist',
-                            fontSize: 34,
+                            fontSize: 22,
                           ),
                     ),
                   ),

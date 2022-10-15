@@ -65,10 +65,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
               height: 500,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Color(0x001A1F24),
-                    FlutterFlowTheme.of(context).secondaryBackground
-                  ],
+                  colors: [Color(0x001A1F24), FlutterFlowTheme.of(context).secondaryBackground],
                   stops: [0, 0.3],
                   begin: AlignmentDirectional(0, -1),
                   end: AlignmentDirectional(0, 1),
@@ -99,48 +96,13 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(24, 0, 24, 12),
+                          padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 12),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                'Create your account below, or',
+                                'Enter Details...',
                                 style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  context.pushNamed(
-                                    'login',
-                                    extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
-                                        hasTransition: true,
-                                        transitionType: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 200),
-                                      ),
-                                    },
-                                  );
-                                },
-                                text: 'Login',
-                                options: FFButtonOptions(
-                                  width: 70,
-                                  height: 28,
-                                  color: Color(0x00FFFFFF),
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'Urbanist',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        fontSize: 14,
-                                      ),
-                                  elevation: 0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
                               ),
                             ],
                           ),
@@ -169,8 +131,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Your email...',
-                              labelStyle:
-                                  FlutterFlowTheme.of(context).bodyText2,
+                              labelStyle: FlutterFlowTheme.of(context).bodyText2,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
@@ -199,8 +160,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              contentPadding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                             ),
                             style: FlutterFlowTheme.of(context).bodyText1,
                           ),
@@ -229,8 +189,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             obscureText: !passwordVisibility,
                             decoration: InputDecoration(
                               labelText: 'Password',
-                              labelStyle:
-                                  FlutterFlowTheme.of(context).bodyText2,
+                              labelStyle: FlutterFlowTheme.of(context).bodyText2,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0x00000000),
@@ -259,20 +218,15 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                  16, 20, 24, 20),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(16, 20, 24, 20),
                               suffixIcon: InkWell(
                                 onTap: () => setState(
-                                  () =>
-                                      passwordVisibility = !passwordVisibility,
+                                  () => passwordVisibility = !passwordVisibility,
                                 ),
                                 focusNode: FocusNode(skipTraversal: true),
                                 child: Icon(
-                                  passwordVisibility
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
+                                  passwordVisibility ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                                  color: FlutterFlowTheme.of(context).secondaryText,
                                   size: 22,
                                 ),
                               ),
@@ -286,11 +240,10 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 12),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 GoRouter.of(context).prepareAuthEvent();
@@ -304,18 +257,14 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                   return;
                                 }
 
-                                context.goNamedAuth(
-                                    'createDogProfile', mounted);
+                                context.goNamedAuth('createDogProfile', mounted);
                               },
                               text: 'Create Account',
                               options: FFButtonOptions(
-                                width: 170,
+                                width: 340,
                                 height: 50,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryColor,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
+                                color: FlutterFlowTheme.of(context).secondaryColor,
+                                textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                                       fontFamily: 'Urbanist',
                                       color: Colors.white,
                                     ),
@@ -336,7 +285,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                       child: FFButtonWidget(
                         onPressed: () async {
                           context.pushNamed(
-                            'createAccount',
+                            'login',
                             extra: <String, dynamic>{
                               kTransitionInfoKey: TransitionInfo(
                                 hasTransition: true,
@@ -346,17 +295,14 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             },
                           );
                         },
-                        text: 'Continue as guest',
+                        text: 'Login',
                         options: FFButtonOptions(
-                          width: 200,
-                          height: 40,
+                          width: 70,
+                          height: 28,
                           color: Color(0x00FFFFFF),
-                          textStyle: FlutterFlowTheme.of(context)
-                              .subtitle2
-                              .override(
+                          textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                                 fontFamily: 'Urbanist',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryColor,
+                                color: FlutterFlowTheme.of(context).primaryColor,
                                 fontSize: 14,
                               ),
                           elevation: 0,

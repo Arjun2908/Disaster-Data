@@ -74,8 +74,8 @@ class _LoginWidgetState extends State<LoginWidget> {
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 44),
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       'Welcome Back, \nWe are glad to know\nyou are still safe!',
@@ -90,43 +90,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 12),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Access your account below or',
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  context.pushNamed(
-                                    'createAccount',
-                                    extra: <String, dynamic>{
-                                      kTransitionInfoKey: TransitionInfo(
-                                        hasTransition: true,
-                                        transitionType: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 200),
-                                      ),
-                                    },
-                                  );
-                                },
-                                text: 'Create Account',
-                                options: FFButtonOptions(
-                                  width: 125,
-                                  height: 28,
-                                  color: Color(0x00FFFFFF),
-                                  textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                                        fontFamily: 'Urbanist',
-                                        color: FlutterFlowTheme.of(context).secondaryColor,
-                                        fontSize: 14,
-                                      ),
-                                  elevation: 0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                            ],
+                            children: [],
                           ),
                         ),
                       ],
@@ -240,7 +204,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              contentPadding: EdgeInsetsDirectional.fromSTEB(16, 20, 24, 20),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(16, 20, 20, 20),
                               suffixIcon: InkWell(
                                 onTap: () => setState(
                                   () => passwordVisibility = !passwordVisibility,
@@ -249,7 +213,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 child: Icon(
                                   passwordVisibility ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                                   color: FlutterFlowTheme.of(context).grayIcon,
-                                  size: 22,
+                                  size: 18,
                                 ),
                               ),
                             ),
@@ -259,38 +223,38 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 12),
+                      padding: EdgeInsetsDirectional.fromSTEB(200, 0, 0, 0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          context.pushNamed('forgotPassword');
+                        },
+                        text: 'Forgot Password?',
+                        options: FFButtonOptions(
+                          width: 170,
+                          height: 50,
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                                fontFamily: 'Urbanist',
+                                color: FlutterFlowTheme.of(context).primaryColor,
+                                fontSize: 14,
+                              ),
+                          elevation: 0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 12),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                context.pushNamed('forgotPassword');
-                              },
-                              text: 'Forgot Password?',
-                              options: FFButtonOptions(
-                                width: 170,
-                                height: 50,
-                                color: FlutterFlowTheme.of(context).secondaryBackground,
-                                textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Urbanist',
-                                      color: FlutterFlowTheme.of(context).primaryColor,
-                                      fontSize: 14,
-                                    ),
-                                elevation: 0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 GoRouter.of(context).prepareAuthEvent();
@@ -308,7 +272,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               },
                               text: 'Login',
                               options: FFButtonOptions(
-                                width: 130,
+                                width: 340,
                                 height: 50,
                                 color: FlutterFlowTheme.of(context).primaryColor,
                                 textStyle: FlutterFlowTheme.of(context).subtitle2.override(
@@ -327,36 +291,47 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(2, 0, 0, 12),
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          GoRouter.of(context).prepareAuthEvent();
-                          final user = await signInAnonymously(context);
-                          if (user == null) {
-                            return;
-                          }
-
-                          context.goNamedAuth('homePage', mounted);
-                        },
-                        text: 'Continue as guest',
-                        options: FFButtonOptions(
-                          width: 200,
-                          height: 40,
-                          color: Color(0x00FFFFFF),
-                          textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Urbanist',
-                                color: FlutterFlowTheme.of(context).secondaryColor,
-                                fontSize: 14,
-                              ),
-                          elevation: 0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
+                    Row(
+                      // align them together,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Don\'t have an account?',
+                          style: FlutterFlowTheme.of(context).bodyText2,
                         ),
-                      ),
+                        FFButtonWidget(
+                          onPressed: () async {
+                            context.pushNamed(
+                              'createAccount',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 200),
+                                ),
+                              },
+                            );
+                          },
+                          text: 'Create Account',
+                          options: FFButtonOptions(
+                            width: 100,
+                            height: 28,
+                            color: Color(0x00FFFFFF),
+                            textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Urbanist',
+                                  color: FlutterFlowTheme.of(context).secondaryColor,
+                                  fontSize: 14,
+                                ),
+                            elevation: 0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
