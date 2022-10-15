@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "652743105461",
+    "project_id": "harvard-12ccd",
+    "storage_bucket": "harvard-12ccd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652743105461:android:fa2590441b7e91901317fc",
+        "android_client_info": {
+          "package_name": "com.flutterflow.edriveapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652743105461-ftpi7ghja8b9m6cj48lh6ma0m14gfkdj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHG7lY_sRdEZJ7eDOxyomqQa81hTi7Kro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652743105461-ftpi7ghja8b9m6cj48lh6ma0m14gfkdj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "652743105461-66080tfhlv0c9b6liakppd0ec94marq5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flutterflow.edriveapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652743105461:android:377bb8533b23ab291317fc",
+        "android_client_info": {
+          "package_name": "com.flutterflow.sniffsocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652743105461-ftpi7ghja8b9m6cj48lh6ma0m14gfkdj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHG7lY_sRdEZJ7eDOxyomqQa81hTi7Kro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652743105461-ftpi7ghja8b9m6cj48lh6ma0m14gfkdj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "652743105461-66080tfhlv0c9b6liakppd0ec94marq5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flutterflow.edriveapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
