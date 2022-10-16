@@ -322,10 +322,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.blue.withOpacity(0.6),
+                          color: Color(0xFF4B39EF).withOpacity(0.6),
                           // offset: Offset(0, 20),
                           blurRadius: 30,
-                          spreadRadius: 2,
+                          spreadRadius: 5,
                         )
                       ],
                       gradient: LinearGradient(
