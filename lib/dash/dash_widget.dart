@@ -322,7 +322,19 @@ class _DashWidgetState extends State<DashWidget> with TickerProviderStateMixin {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 17, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Donation History',
+                        style: FlutterFlowTheme.of(context).subtitle1,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 7, 20, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -437,7 +449,7 @@ class _DashWidgetState extends State<DashWidget> with TickerProviderStateMixin {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Sales & Revenue',
+                        'Your Contributions',
                         style: FlutterFlowTheme.of(context).subtitle1,
                       ),
                     ],

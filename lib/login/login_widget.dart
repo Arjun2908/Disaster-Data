@@ -146,7 +146,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              contentPadding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(16, 20, 24, 20),
                             ),
                             style: FlutterFlowTheme.of(context).bodyText1,
                           ),
@@ -204,7 +204,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              contentPadding: EdgeInsetsDirectional.fromSTEB(16, 20, 20, 20),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(16, 20, 24, 20),
                               suffixIcon: InkWell(
                                 onTap: () => setState(
                                   () => passwordVisibility = !passwordVisibility,

@@ -306,272 +306,277 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
               ],
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-              child: Material(
-                color: Colors.transparent,
-                elevation: 15,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Container(
-                  width: 280,
-                  height: 268,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4,
-                        color: Color(0x33000000),
-                        offset: Offset(0, 2),
-                      )
-                    ],
-                    gradient: LinearGradient(
-                      colors: [FlutterFlowTheme.of(context).primaryColor, FlutterFlowTheme.of(context).secondaryColor],
-                      stops: [0, 1],
-                      begin: AlignmentDirectional(0, -1),
-                      end: AlignmentDirectional(0, 1),
-                    ),
+            Align(
+              // alignment: AlignmentDirectional(-0.7, 0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: Material(
+                  color: Colors.transparent,
+                  elevation: 15,
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  alignment: AlignmentDirectional(0, 0.050000000000000044),
-                  child: StreamBuilder<List<UserPostsRecord>>(
-                    stream: queryUserPostsRecord(
-                      queryBuilder: (userPostsRecord) => userPostsRecord.orderBy('timePosted', descending: true),
-                      limit: 1,
+                  child: Container(
+                    width: 280,
+                    height: 268,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.blue.withOpacity(0.6),
+                          // offset: Offset(0, 20),
+                          blurRadius: 30,
+                          spreadRadius: 2,
+                        )
+                      ],
+                      gradient: LinearGradient(
+                        colors: [FlutterFlowTheme.of(context).primaryColor, FlutterFlowTheme.of(context).secondaryColor],
+                        stops: [0, 1],
+                        begin: AlignmentDirectional(0, -1),
+                        end: AlignmentDirectional(0, 10),
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primaryColor,
+                    alignment: AlignmentDirectional(0, 0.050000000000000044),
+                    child: StreamBuilder<List<UserPostsRecord>>(
+                      stream: queryUserPostsRecord(
+                        queryBuilder: (userPostsRecord) => userPostsRecord.orderBy('timePosted', descending: true),
+                        limit: 1,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(
+                                color: FlutterFlowTheme.of(context).primaryColor,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<UserPostsRecord> socialFeedUserPostsRecordList = snapshot.data!;
-                      if (socialFeedUserPostsRecordList.isEmpty) {
-                        return Center(
-                          child: Image.asset(
-                            'assets/images/emptyPosts@2x.png',
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            height: 400,
-                          ),
-                        );
-                      }
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: List.generate(socialFeedUserPostsRecordList.length, (socialFeedIndex) {
-                          final socialFeedUserPostsRecord = socialFeedUserPostsRecordList[socialFeedIndex];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 8),
-                            child: StreamBuilder<UsersRecord>(
-                              stream: UsersRecord.getDocument(socialFeedUserPostsRecord.postUser!),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context).primaryColor,
+                          );
+                        }
+                        List<UserPostsRecord> socialFeedUserPostsRecordList = snapshot.data!;
+                        if (socialFeedUserPostsRecordList.isEmpty) {
+                          return Center(
+                            child: Image.asset(
+                              'assets/images/emptyPosts@2x.png',
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              height: 400,
+                            ),
+                          );
+                        }
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: List.generate(socialFeedUserPostsRecordList.length, (socialFeedIndex) {
+                            final socialFeedUserPostsRecord = socialFeedUserPostsRecordList[socialFeedIndex];
+                            return Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 8),
+                              child: StreamBuilder<UsersRecord>(
+                                stream: UsersRecord.getDocument(socialFeedUserPostsRecord.postUser!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: CircularProgressIndicator(
+                                          color: FlutterFlowTheme.of(context).primaryColor,
+                                        ),
                                       ),
+                                    );
+                                  }
+                                  final userPostUsersRecord = snapshot.data!;
+                                  return Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4,
+                                          color: Color(0x32000000),
+                                          offset: Offset(0, 2),
+                                        )
+                                      ],
+                                      gradient: LinearGradient(
+                                        colors: [FlutterFlowTheme.of(context).primaryColor, Color(0xFFF5F5F5)],
+                                        stops: [0, 1],
+                                        begin: AlignmentDirectional(0, -1),
+                                        end: AlignmentDirectional(0, 1),
+                                      ),
+                                      borderRadius: BorderRadius.circular(0),
                                     ),
-                                  );
-                                }
-                                final userPostUsersRecord = snapshot.data!;
-                                return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 4,
-                                        color: Color(0x32000000),
-                                        offset: Offset(0, 2),
-                                      )
-                                    ],
-                                    gradient: LinearGradient(
-                                      colors: [FlutterFlowTheme.of(context).primaryColor, Color(0xFFF5F5F5)],
-                                      stops: [0, 1],
-                                      begin: AlignmentDirectional(0, -1),
-                                      end: AlignmentDirectional(0, 1),
-                                    ),
-                                    borderRadius: BorderRadius.circular(0),
-                                  ),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        'postDetails',
-                                        queryParams: {
-                                          'userRecord': serializeParam(
-                                            userPostUsersRecord,
-                                            ParamType.Document,
-                                          ),
-                                          'postReference': serializeParam(
-                                            socialFeedUserPostsRecord.reference,
-                                            ParamType.DocumentReference,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'userRecord': userPostUsersRecord,
-                                        },
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 2, 0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              InkWell(
-                                                onTap: () async {
-                                                  context.pushNamed(
-                                                    'viewProfilePageOther',
-                                                    queryParams: {
-                                                      'userDetails': serializeParam(
-                                                        userPostUsersRecord,
-                                                        ParamType.Document,
-                                                      ),
-                                                    }.withoutNulls,
-                                                    extra: <String, dynamic>{
-                                                      'userDetails': userPostUsersRecord,
-                                                    },
-                                                  );
-                                                },
-                                                child: Row(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                                                      child: Card(
-                                                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                        color: Color(0xFF4B39EF),
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(20),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        context.pushNamed(
+                                          'postDetails',
+                                          queryParams: {
+                                            'userRecord': serializeParam(
+                                              userPostUsersRecord,
+                                              ParamType.Document,
+                                            ),
+                                            'postReference': serializeParam(
+                                              socialFeedUserPostsRecord.reference,
+                                              ParamType.DocumentReference,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'userRecord': userPostUsersRecord,
+                                          },
+                                        );
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 2, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                      'viewProfilePageOther',
+                                                      queryParams: {
+                                                        'userDetails': serializeParam(
+                                                          userPostUsersRecord,
+                                                          ParamType.Document,
                                                         ),
-                                                        child: Padding(
-                                                          padding: EdgeInsetsDirectional.fromSTEB(1, 1, 1, 1),
-                                                          child: Container(
-                                                            width: 40,
-                                                            height: 40,
-                                                            clipBehavior: Clip.antiAlias,
-                                                            decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
-                                                            ),
-                                                            child: CachedNetworkImage(
-                                                              imageUrl: valueOrDefault<String>(
-                                                                userPostUsersRecord.photoUrl,
-                                                                'https://filecache.mediaroom.com/mr5mr_paypal/183497/supporting%20relief%20efforts%20in%20Ukraine%20GettyImages-1238750704.jpg',
+                                                      }.withoutNulls,
+                                                      extra: <String, dynamic>{
+                                                        'userDetails': userPostUsersRecord,
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                                        child: Card(
+                                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                          color: Color(0xFF4B39EF),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(20),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: EdgeInsetsDirectional.fromSTEB(1, 1, 1, 1),
+                                                            child: Container(
+                                                              width: 40,
+                                                              height: 40,
+                                                              clipBehavior: Clip.antiAlias,
+                                                              decoration: BoxDecoration(
+                                                                shape: BoxShape.circle,
                                                               ),
-                                                              fit: BoxFit.fitWidth,
+                                                              child: CachedNetworkImage(
+                                                                imageUrl: valueOrDefault<String>(
+                                                                  userPostUsersRecord.photoUrl,
+                                                                  'https://filecache.mediaroom.com/mr5mr_paypal/183497/supporting%20relief%20efforts%20in%20Ukraine%20GettyImages-1238750704.jpg',
+                                                                ),
+                                                                fit: BoxFit.fitWidth,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          userPostUsersRecord.userName,
-                                                          'myUsername',
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                                        child: Text(
+                                                          valueOrDefault<String>(
+                                                            userPostUsersRecord.userName,
+                                                            'myUsername',
+                                                          ),
+                                                          style: FlutterFlowTheme.of(context).subtitle1,
                                                         ),
-                                                        style: FlutterFlowTheme.of(context).subtitle1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          FlutterFlowMediaDisplay(
+                                            path: valueOrDefault<String>(
+                                              socialFeedUserPostsRecord.postPhoto,
+                                              'https://static01.nyt.com/images/2022/10/12/podcasts/12daily-1/12DAILY-ukraine-missles-audio-app-superJumbo-v2.jpg?quality=75&auto=webp',
+                                            ),
+                                            imageBuilder: (path) => CachedNetworkImage(
+                                              imageUrl: path,
+                                              width: MediaQuery.of(context).size.width,
+                                              height: 150,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            videoPlayerBuilder: (path) => FlutterFlowVideoPlayer(
+                                              path: path,
+                                              width: 300,
+                                              autoPlay: false,
+                                              looping: true,
+                                              showControls: true,
+                                              allowFullScreen: true,
+                                              allowPlaybackSpeedMenu: false,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Row(
+                                                  mainAxisSize: MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
+                                                      child: Text(
+                                                        dateTimeFormat('relative', socialFeedUserPostsRecord.timePosted!),
+                                                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                              fontFamily: 'Urbanist',
+                                                              color: FlutterFlowTheme.of(context).primaryDark,
+                                                            ),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        FlutterFlowMediaDisplay(
-                                          path: valueOrDefault<String>(
-                                            socialFeedUserPostsRecord.postPhoto,
-                                            'https://static01.nyt.com/images/2022/10/12/podcasts/12daily-1/12DAILY-ukraine-missles-audio-app-superJumbo-v2.jpg?quality=75&auto=webp',
-                                          ),
-                                          imageBuilder: (path) => CachedNetworkImage(
-                                            imageUrl: path,
-                                            width: MediaQuery.of(context).size.width,
-                                            height: 150,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          videoPlayerBuilder: (path) => FlutterFlowVideoPlayer(
-                                            path: path,
-                                            width: 300,
-                                            autoPlay: false,
-                                            looping: true,
-                                            showControls: true,
-                                            allowFullScreen: true,
-                                            allowPlaybackSpeedMenu: false,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding: EdgeInsetsDirectional.fromSTEB(150, 2, 0, 0),
+                                          Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: EdgeInsetsDirectional.fromSTEB(10, 0, 12, 12),
                                                     child: Text(
-                                                      dateTimeFormat('relative', socialFeedUserPostsRecord.timePosted!),
+                                                      valueOrDefault<String>(
+                                                        socialFeedUserPostsRecord.postDescription,
+                                                        'I\'m back with a super quick Instagram redesign just for the fan. Rounded corners and cute icons, what else do we need, haha.⁣ ',
+                                                      ),
                                                       style: FlutterFlowTheme.of(context).bodyText1.override(
                                                             fontFamily: 'Urbanist',
                                                             color: FlutterFlowTheme.of(context).primaryDark,
+                                                            fontSize: 14,
                                                           ),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(2, 4, 0, 0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 12),
-                                                  child: Text(
-                                                    valueOrDefault<String>(
-                                                      socialFeedUserPostsRecord.postDescription,
-                                                      'I\'m back with a super quick Instagram redesign just for the fan. Rounded corners and cute icons, what else do we need, haha.⁣ ',
-                                                    ),
-                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                          fontFamily: 'Urbanist',
-                                                          color: FlutterFlowTheme.of(context).primaryDark,
-                                                        ),
-                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        }),
-                      );
-                    },
+                                  );
+                                },
+                              ),
+                            );
+                          }),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -615,255 +620,259 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 20),
-              child: Material(
-                color: Colors.transparent,
-                elevation: 15,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Container(
-                  width: 280,
-                  height: 282,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4,
-                        color: Color(0x33000000),
-                        offset: Offset(0, 2),
-                      )
-                    ],
-                    gradient: LinearGradient(
-                      colors: [FlutterFlowTheme.of(context).primaryColor, FlutterFlowTheme.of(context).secondaryColor],
-                      stops: [0, 1],
-                      begin: AlignmentDirectional(0, -1),
-                      end: AlignmentDirectional(0, 1),
-                    ),
+            Align(
+              // alignment: AlignmentDirectional(-0.7, 0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 20),
+                child: Material(
+                  color: Colors.transparent,
+                  elevation: 15,
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  alignment: AlignmentDirectional(0, 0.050000000000000044),
-                  child: StreamBuilder<List<UserPostsRecord>>(
-                    stream: queryUserPostsRecord(
-                      queryBuilder: (userPostsRecord) => userPostsRecord.orderBy('timePosted', descending: true),
-                      limit: 1,
+                  child: Container(
+                    width: 280,
+                    height: 282,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4,
+                          color: Color(0x33000000),
+                          offset: Offset(0, 2),
+                        )
+                      ],
+                      gradient: LinearGradient(
+                        colors: [FlutterFlowTheme.of(context).primaryColor, FlutterFlowTheme.of(context).secondaryColor],
+                        stops: [0, 1],
+                        begin: AlignmentDirectional(0, -1),
+                        end: AlignmentDirectional(0, 10),
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primaryColor,
+                    alignment: AlignmentDirectional(0, 0.050000000000000044),
+                    child: StreamBuilder<List<UserPostsRecord>>(
+                      stream: queryUserPostsRecord(
+                        queryBuilder: (userPostsRecord) => userPostsRecord.orderBy('timePosted', descending: true),
+                        limit: 1,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(
+                                color: FlutterFlowTheme.of(context).primaryColor,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<UserPostsRecord> socialFeedUserPostsRecordList = snapshot.data!;
-                      if (socialFeedUserPostsRecordList.isEmpty) {
-                        return Center(
-                          child: Image.asset(
-                            'assets/images/emptyPosts@2x.png',
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            height: 400,
-                          ),
-                        );
-                      }
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: List.generate(socialFeedUserPostsRecordList.length, (socialFeedIndex) {
-                          final socialFeedUserPostsRecord = socialFeedUserPostsRecordList[socialFeedIndex];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 8),
-                            child: StreamBuilder<UsersRecord>(
-                              stream: UsersRecord.getDocument(socialFeedUserPostsRecord.postUser!),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context).primaryColor,
+                          );
+                        }
+                        List<UserPostsRecord> socialFeedUserPostsRecordList = snapshot.data!;
+                        if (socialFeedUserPostsRecordList.isEmpty) {
+                          return Center(
+                            child: Image.asset(
+                              'assets/images/emptyPosts@2x.png',
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              height: 400,
+                            ),
+                          );
+                        }
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: List.generate(socialFeedUserPostsRecordList.length, (socialFeedIndex) {
+                            final socialFeedUserPostsRecord = socialFeedUserPostsRecordList[socialFeedIndex];
+                            return Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 8),
+                              child: StreamBuilder<UsersRecord>(
+                                stream: UsersRecord.getDocument(socialFeedUserPostsRecord.postUser!),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: CircularProgressIndicator(
+                                          color: FlutterFlowTheme.of(context).primaryColor,
+                                        ),
                                       ),
+                                    );
+                                  }
+                                  final userPostUsersRecord = snapshot.data!;
+                                  return Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          // color: Colors.blue.withOpacity(0.8),
+                                          // offset: Offset(20, 20),
+                                          blurRadius: 30,
+                                          spreadRadius: 10,
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(0),
                                     ),
-                                  );
-                                }
-                                final userPostUsersRecord = snapshot.data!;
-                                return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 4,
-                                        color: Color(0x32000000),
-                                        offset: Offset(0, 2),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(0),
-                                  ),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        'postDetails',
-                                        queryParams: {
-                                          'userRecord': serializeParam(
-                                            userPostUsersRecord,
-                                            ParamType.Document,
-                                          ),
-                                          'postReference': serializeParam(
-                                            socialFeedUserPostsRecord.reference,
-                                            ParamType.DocumentReference,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'userRecord': userPostUsersRecord,
-                                        },
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 2, 4),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              InkWell(
-                                                onTap: () async {
-                                                  context.pushNamed(
-                                                    'viewProfilePageOther',
-                                                    queryParams: {
-                                                      'userDetails': serializeParam(
-                                                        userPostUsersRecord,
-                                                        ParamType.Document,
-                                                      ),
-                                                    }.withoutNulls,
-                                                    extra: <String, dynamic>{
-                                                      'userDetails': userPostUsersRecord,
-                                                    },
-                                                  );
-                                                },
-                                                child: Row(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                                                      child: Card(
-                                                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                                                        color: Color(0xFF4B39EF),
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(20),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        context.pushNamed(
+                                          'postDetails',
+                                          queryParams: {
+                                            'userRecord': serializeParam(
+                                              userPostUsersRecord,
+                                              ParamType.Document,
+                                            ),
+                                            'postReference': serializeParam(
+                                              socialFeedUserPostsRecord.reference,
+                                              ParamType.DocumentReference,
+                                            ),
+                                          }.withoutNulls,
+                                          extra: <String, dynamic>{
+                                            'userRecord': userPostUsersRecord,
+                                          },
+                                        );
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 2, 4),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                      'viewProfilePageOther',
+                                                      queryParams: {
+                                                        'userDetails': serializeParam(
+                                                          userPostUsersRecord,
+                                                          ParamType.Document,
                                                         ),
-                                                        child: Padding(
-                                                          padding: EdgeInsetsDirectional.fromSTEB(1, 1, 1, 1),
-                                                          child: Container(
-                                                            width: 40,
-                                                            height: 40,
-                                                            clipBehavior: Clip.antiAlias,
-                                                            decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
-                                                            ),
-                                                            child: CachedNetworkImage(
-                                                              imageUrl: valueOrDefault<String>(
-                                                                userPostUsersRecord.photoUrl,
-                                                                'https://filecache.mediaroom.com/mr5mr_paypal/183497/supporting%20relief%20efforts%20in%20Ukraine%20GettyImages-1238750704.jpg',
+                                                      }.withoutNulls,
+                                                      extra: <String, dynamic>{
+                                                        'userDetails': userPostUsersRecord,
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                                        child: Card(
+                                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                          color: Color(0xFF4B39EF),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(20),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: EdgeInsetsDirectional.fromSTEB(1, 1, 1, 1),
+                                                            child: Container(
+                                                              width: 40,
+                                                              height: 40,
+                                                              clipBehavior: Clip.antiAlias,
+                                                              decoration: BoxDecoration(
+                                                                shape: BoxShape.circle,
                                                               ),
-                                                              fit: BoxFit.fitWidth,
+                                                              child: CachedNetworkImage(
+                                                                imageUrl: valueOrDefault<String>(
+                                                                  userPostUsersRecord.photoUrl,
+                                                                  'https://filecache.mediaroom.com/mr5mr_paypal/183497/supporting%20relief%20efforts%20in%20Ukraine%20GettyImages-1238750704.jpg',
+                                                                ),
+                                                                fit: BoxFit.fitWidth,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          userPostUsersRecord.userName,
-                                                          'myUsername',
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                                        child: Text(
+                                                          valueOrDefault<String>(
+                                                            userPostUsersRecord.userName,
+                                                            'myUsername',
+                                                          ),
+                                                          style: FlutterFlowTheme.of(context).subtitle1,
                                                         ),
-                                                        style: FlutterFlowTheme.of(context).subtitle1,
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        FlutterFlowMediaDisplay(
-                                          path: valueOrDefault<String>(
-                                            socialFeedUserPostsRecord.postPhoto,
-                                            'https://static01.nyt.com/images/2022/10/12/podcasts/12daily-1/12DAILY-ukraine-missles-audio-app-superJumbo-v2.jpg?quality=75&auto=webp',
+                                          FlutterFlowMediaDisplay(
+                                            path: valueOrDefault<String>(
+                                              socialFeedUserPostsRecord.postPhoto,
+                                              'https://static01.nyt.com/images/2022/10/12/podcasts/12daily-1/12DAILY-ukraine-missles-audio-app-superJumbo-v2.jpg?quality=75&auto=webp',
+                                            ),
+                                            imageBuilder: (path) => CachedNetworkImage(
+                                              imageUrl: path,
+                                              width: MediaQuery.of(context).size.width,
+                                              height: 150,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            videoPlayerBuilder: (path) => FlutterFlowVideoPlayer(
+                                              path: path,
+                                              width: 300,
+                                              autoPlay: false,
+                                              looping: true,
+                                              showControls: true,
+                                              allowFullScreen: true,
+                                              allowPlaybackSpeedMenu: false,
+                                            ),
                                           ),
-                                          imageBuilder: (path) => CachedNetworkImage(
-                                            imageUrl: path,
-                                            width: MediaQuery.of(context).size.width,
-                                            height: 150,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          videoPlayerBuilder: (path) => FlutterFlowVideoPlayer(
-                                            path: path,
-                                            width: 300,
-                                            autoPlay: false,
-                                            looping: true,
-                                            showControls: true,
-                                            allowFullScreen: true,
-                                            allowPlaybackSpeedMenu: false,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(150, 2, 0, 0),
-                                                child: Text(
-                                                  dateTimeFormat('relative', socialFeedUserPostsRecord.timePosted!),
-                                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsetsDirectional.fromSTEB(2, 4, 0, 0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 12),
+                                          Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
                                                   child: Text(
-                                                    valueOrDefault<String>(
-                                                      socialFeedUserPostsRecord.postDescription,
-                                                      'I\'m back with a super quick Instagram redesign just for the fan. Rounded corners and cute icons, what else do we need, haha.⁣ ',
-                                                    ),
+                                                    dateTimeFormat('relative', socialFeedUserPostsRecord.timePosted!),
                                                     style: FlutterFlowTheme.of(context).bodyText1,
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(2, 4, 0, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: EdgeInsetsDirectional.fromSTEB(8, 0, 12, 12),
+                                                    child: Text(
+                                                      valueOrDefault<String>(
+                                                        socialFeedUserPostsRecord.postDescription,
+                                                        'I\'m back with a super quick Instagram redesign just for the fan. Rounded corners and cute icons, what else do we need, haha.⁣ ',
+                                                      ),
+                                                      style: FlutterFlowTheme.of(context).bodyText1,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        }),
-                      );
-                    },
+                                  );
+                                },
+                              ),
+                            );
+                          }),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
